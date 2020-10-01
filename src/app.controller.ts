@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -23,11 +23,4 @@ export class AppController {
         };
     }
 
-    @Get('/user')
-    @Render('userList')
-    async getUsers() {
-        return {
-            Users : await this.appService.getUsers()
-        };
-    }
 }
