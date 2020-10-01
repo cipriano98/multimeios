@@ -1,0 +1,19 @@
+<div>
+    <table class="table table-hover">
+        <tr>
+            <td>id</td>
+            <td>nome</td>
+            <td>email</td>
+            <td>role</td>
+        </tr>
+
+        {{#each Users}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.fullname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.role}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
