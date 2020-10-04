@@ -7,9 +7,10 @@ O trabalho consiste em desenvolver uma aplicação com **`funcionalidades admini
 ## Funcionalidades:
 
 * **`Cadastros de Entidades:`** Consiste em um CRUD (Create-Retrieve-Update-Delete) de uma determinada entidade (no exemplo acima seria produtos, categorias, etc). Uma dica importante é relacionar identificadores (“id”) para essas entidades. Pelo menos **`dois tipos de cadastros são obrigatórios`**.
-* **`Funcionalidades de negócio:`** Consiste em funcionalidades que aplicam operações ou regras de negócio específicas no sistema. Por exemplo, a funcionalidade “controle de estoque” aplicam operações e regras de negócio para fazer esse controle. Pelo menos **`um tipo de regra de negócio é obrigatório`**. <br>
+* **`Funcionalidades de negócio:`** Consiste em funcionalidades que aplicam operações ou regras de negócio específicas no sistema. Por exemplo, a funcionalidade “controle de estoque” aplicam operações e regras de negócio para fazer esse controle. Pelo menos **`um tipo de regra de negócio é obrigatório`**.
 * **`Autenticação e controle de usuário:`** Todos os usuários administrativos devem realizar um login para acessar o sistema. Inicialmente, o sistema deve conter apenas um usuário admin. Esse usuário poderá cadastrar novos usuários, informando o CPF, nome, cargo na empresa, e-mail e username. A senha pode estar inicialmente no cadastro do novo usuário, mas o ideal é enviar por e-mail para o novo usuário com um link para este usuário cadastrar a senha. Os usuários cadastrados poderão editar seu perfil.
 '''
+<br>
 <br>
 
 # Concepts

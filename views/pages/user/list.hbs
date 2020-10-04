@@ -1,0 +1,36 @@
+<div>
+    <div class="row">
+        <h1>Lista de usuários</h1>
+        <a href='user/add' class='btn btn-outline-primary'>Add</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>role</th>
+                <th>Ação</th>
+            </thead>
+
+
+            {{#each Users}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.fullname}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.role}}</td>
+                <td>
+                    {{!-- <a href='?id={{this.id}}' class='btn btn-outline-danger'>Excluir</a> --}}
+                    <form action="user/profile" method="POST">
+                        <input type="hidden" name="id" value={{this.id}} />
+                        <button class="btn btn-outline-success">Perfil</button>
+                    </form>
+                    {{!-- <a href='user/profile/{{this.id}}' >Perfil</a> --}}
+                </td>
+
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>
