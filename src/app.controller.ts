@@ -6,28 +6,20 @@ export class AppController {
     constructor(private readonly appService: AppService) { }
 
     @Get()
-    @Render('home')
+    @Render('pages/home')
     root() {
         return {
-            title: 'Home Page initial',
+            title: 'Home',
             message: this.appService.getHello()
         };
     }
 
     @Get('/about')
-    @Render('about')
+    @Render('pages/about')
     about() {
         return {
-            title: 'About Page',
+            title: 'About',
             message: 'hello About'
-        };
-    }
-
-    @Get('/user')
-    @Render('userList')
-    async getUsers() {
-        return {
-            Users : await this.appService.getUsers()
         };
     }
 }
