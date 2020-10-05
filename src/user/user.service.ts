@@ -16,6 +16,14 @@ export class UserService {
         })
     }
 
+    async deleteUser(id) {
+        return await this.prisma.user.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+    }
+
     async getUsers() {
         return await this.prisma.user.findMany({
             where: {
@@ -28,7 +36,9 @@ export class UserService {
 
     async createUser(data) {
         return await this.prisma.user.create({
-            ...data
+            data: {
+                ...data
+            }
         })
     }
 

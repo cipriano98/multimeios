@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete, Put, Param, Render } from '@nestjs/common';
 import { UserService } from './user.service';
 
 
@@ -18,32 +18,41 @@ export class UserController {
         };
     }
 
-    @Get('/add')
-    @Render('pages/user/create')
-    async add() {
-        console.dir('Método add')
-        return {
-            title: 'Novo usuário',
-        };
-    }
-
     @Post('/profile')
     @Render('pages/user/profile')
     async profile(@Body('id') id) {
         const user = await this.service.getUser(id)
         return {
             title: 'Perfil',
-            User : user
+            User: user
         };
     }
 
+    @Get('/add')
+    @Render('pages/user/create')
+    async add() {
+        return {
+            title: 'Novo usuário',
+        };
+    }
 
     @Post('/')
-    @Render('pages/user/create')
+    @Render('pages/user/list')
     async createUser(@Body() data) {
+        const newUser = await this.service.createUser(data)
         return {
-            Users: await this.service.createUser(data)
+            Users: newUser
         };
+    }
+
+    @Post('/delete')
+    @Render('pages/user/list')
+    async deletUser(@Body('id') id) {
+        const deletUser = await this.service.deleteUser(id)
+        console.dir(deletUser)
+        return {
+            User: deletUser
+        }
     }
 
 }

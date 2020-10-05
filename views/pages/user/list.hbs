@@ -21,12 +21,14 @@
                 <td>{{this.email}}</td>
                 <td>{{this.role}}</td>
                 <td>
-                    {{!-- <a href='?id={{this.id}}' class='btn btn-outline-danger'>Excluir</a> --}}
                     <form action="user/profile" method="POST">
                         <input type="hidden" name="id" value={{this.id}} />
                         <button class="btn btn-outline-success">Perfil</button>
                     </form>
-                    {{!-- <a href='user/profile/{{this.id}}' >Perfil</a> --}}
+                    <form action="user/delete" method="POST">
+                        <input type="hidden" name="id" value={{this.id}} />
+                        <button class="btn btn-outline-danger">Deletar</button>
+                    </form>
                 </td>
 
             </tr>
