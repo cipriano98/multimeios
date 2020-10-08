@@ -336,14 +336,6 @@
   dependencies:
     optional "0.1.4"
 
-"@nestjsplus/redirect@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjsplus/redirect/-/redirect-1.0.0.tgz#c50ea1cdbab3c186865ffff97ebcb37a47cc36cd"
-  integrity sha512-KvgPQC1jt9jIB29xY2yrSRZDGSUw0AJAT43EzXCv3fmwgsD7pq+fx7pRZQKbkKggIasvDydyEzPunULF9vDXHg==
-  dependencies:
-    reflect-metadata "^0.1.12"
-    rxjs "^6.3.3"
-
 "@nuxtjs/opencollective@0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/opencollective/-/opencollective-0.2.1.tgz#ddf3e6a22990997322bc2b82e2455a7fbffc518d"
@@ -4446,7 +4438,7 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
-reflect-metadata@^0.1.12, reflect-metadata@^0.1.13:
+reflect-metadata@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
