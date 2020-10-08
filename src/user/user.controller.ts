@@ -1,4 +1,9 @@
-import { Body, Controller, Get, Post, Delete, Put, Param, Render } from '@nestjs/common';
+import {
+    Controller, Render,
+    Body, Get, Post, Param,
+    Res, Req,
+    HttpException, HttpStatus, HttpCode
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 
@@ -12,20 +17,28 @@ export class UserController {
     @Get()
     @Render('pages/user/list')
     async users() {
-        return {
-            title: 'Usuários',
-            Users: await this.service.getUsers()
-        };
+        const getUsers = await this.service.getUsers()
+        console.dir(getUsers.length)
+        if (getUsers)
+            return {
+                title: 'Usuários',
+                Users: getUsers
+            };
+        throw new HttpException('Não há dados', HttpStatus.NO_CONTENT)
+
     }
 
     @Post('/profile')
+    @HttpCode(200)
     @Render('pages/user/profile')
     async profile(@Body('id') id) {
         const user = await this.service.getUser(id)
-        return {
-            title: 'Perfil',
-            User: user
-        };
+        if (user)
+            return {
+                title: 'Perfil',
+                User: user
+            };
+        throw new HttpException('O usuário com este id não existe', HttpStatus.NOT_FOUND)
     }
 
     @Get('/add')
@@ -38,20 +51,24 @@ export class UserController {
 
     @Post('/')
     @Render('pages/user/list')
-    async createUser(@Body() data) {
+    async createUser(@Res() res, @Body() data) {
         const newUser = await this.service.createUser(data)
+
+        if (newUser) {
+            res.redirect('/user')
+        }
         return {
             Users: newUser
         };
     }
 
     @Post('/delete')
-    @Render('pages/user/list')
-    async deletUser(@Body('id') id) {
-        const deletUser = await this.service.deleteUser(id)
-        console.dir(deletUser)
-        return {
-            User: deletUser
+    @HttpCode(200)
+    async deletUser(@Res() res, @Body('id') id) {
+        const deleteUser = await this.service.deleteUser(id)
+
+        if (deleteUser) {
+            res.redirect('/user')
         }
     }
 
