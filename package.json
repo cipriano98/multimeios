@@ -1,7 +1,7 @@
 {
     "name": "multimeios",
     "description": "My new description app",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": "Natan Cipriano <natancipriano98@gmail.com>",
     "main": "dist/server.js",
     "private": true,
@@ -25,6 +25,11 @@
         "up": "prisma migrate up --experimental --verbose",
         "generate": "prisma generate",
         "studio": "prisma studio",
+        "pm2": "pm2 start pm2.config.ts --env production",
+        "pm2-dev": "pm2 start pm2.config.ts --watch --ignore-watch='node_modules'",
+        "stop": "pm2 stop pm2.config.ts",
+        "delete": "pm2 delete pm2.config.ts",
+        "restart": "pm2 restart pm2.config.ts",
         "prisma": "yarn save && yarn up && yarn generate"
     },
     "dependencies": {
