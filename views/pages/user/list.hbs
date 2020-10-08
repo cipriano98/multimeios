@@ -21,14 +21,16 @@
                 <td>{{this.email}}</td>
                 <td>{{this.role}}</td>
                 <td>
-                    <form action="user/profile" method="POST">
-                        <input type="hidden" name="id" value={{this.id}} />
-                        <button class="btn btn-outline-success">Perfil</button>
-                    </form>
-                    <form action="user/delete" method="POST">
-                        <input type="hidden" name="id" value={{this.id}} />
-                        <button class="btn btn-outline-danger">Deletar</button>
-                    </form>
+                    {{!-- <div class="row"> --}}
+                        <form action="user/profile" method="POST">
+                            <input type="hidden" name="id" value={{this.id}} />
+                            <button class="btn btn-outline-success">Perfil</button>
+                        </form>
+                        <form action="user/delete" method="POST">
+                            <input type="hidden" name="id" value={{this.id}} />
+                            <button class="btn btn-outline-danger">Deletar</button>
+                        </form>
+                    {{!-- </div> --}}
                 </td>
 
             </tr>
