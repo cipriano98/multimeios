@@ -18,7 +18,19 @@ async function bootstrap() {
 
     const port = process.env.PORT || 3000
     await app.listen(port, '0.0.0.0', () => {
-        console.log(`Acces http://localhost:${port}`);
+        console.clear()
+        console.log(`
+            ##     ## ##     ## ##       ######## #### ##     ## ######## ####  #######   ######
+            ###   ### ##     ## ##          ##     ##  ###   ### ##        ##  ##     ## ##    ##
+            #### #### ##     ## ##          ##     ##  #### #### ##        ##  ##     ## ##
+            ## ### ## ##     ## ##          ##     ##  ## ### ## ######    ##  ##     ##  ######
+            ##     ## ##     ## ##          ##     ##  ##     ## ##        ##  ##     ##       ##
+            ##     ## ##     ## ##          ##     ##  ##     ## ##        ##  ##     ## ##    ##
+            ##     ##  #######  ########    ##    #### ##     ## ######## ####  #######   ######
+        `)
+        console.log(`\n${process.env.npm_package_NAME} is running in http://localhost:${port}`)
+        console.log(process.env.npm_package_DESCRIPTION)
+        console.log(`${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}\n`);
     });
 }
 
