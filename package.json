@@ -11,7 +11,6 @@
         "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,html}'",
         "start": "ts-node -r tsconfig-paths/register src/main.ts",
         "ts-dev": "ts-node-dev -r tsconfig-paths/register src/main.ts",
-        "dev": "nest build --webpack --webpackPath webpack-hmr.config.js",
         "start:dev": "concurrently --handle-input \"wait-on dist/main.js && nodemon\" \"tsc -w -p tsconfig.build.json\" ",
         "start:debug": "nodemon --config nodemon-debug.json",
         "prestart:prod": "rimraf dist && npm run build",
@@ -68,15 +67,14 @@
         "jest": "^24.8.0",
         "nodemon": "^1.19.1",
         "prettier": "^1.17.1",
-        "start-server-webpack-plugin": "^2.2.5",
         "supertest": "^4.0.2",
         "ts-jest": "24.0.2",
+        "ts-loader": "^6.2.1",
         "ts-node": "8.2.0",
         "ts-node-dev": "^1.0.0-pre.63",
         "tsconfig-paths": "3.8.0",
         "tslint": "5.16.0",
-        "typescript": "3.4.5",
-        "webpack-node-externals": "^2.5.2"
+        "typescript": "3.4.5"
     },
     "jest": {
         "moduleFileExtensions": [
