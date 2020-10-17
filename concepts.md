@@ -19,14 +19,14 @@ O trabalho consiste em desenvolver uma aplicação com **`funcionalidades admini
 
 - [ ] Aplicação inicial, realizando pelo menos dois cadastros;
 - [ ] Realização do login;
-- [ ] Persistência de dados;
+- [x] Persistência de dados;
 - [x] Utilização adequada do Framework Back-end.
 
 ## Conceito B:
 
 - [ ] Realização das funcionalidades para o conceito C;
 - [ ] Aplicação praticamente funcional - realizando os cadastros e a funcionalidade de negócio;
-- [ ] Cadastros simples de usuários, edição de perfil e realização do login;
+- [x] Cadastros simples de usuários, edição de perfil;
 - [ ] Interface gráfica adequada;
 - [x] Utilização de um sistema de controle de versão (ex: git) e de um ambiente de colaboração e gerenciamento de código baseado nesse controle de versão (ex: github, bitbucket).
 
