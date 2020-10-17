@@ -11,28 +11,26 @@ import { UserService } from './user.service';
 export class UserController {
 
     constructor(
-        private service: UserService,
+        private service: UserService
     ) { }
 
     @Get()
     @Render('pages/user/list')
     async users() {
-        const getUsers = await this.service.getUsers()
-        console.dir(getUsers.length)
+        const getUsers = await this.service.getMany()
         if (getUsers)
             return {
                 title: 'Usuários',
                 Users: getUsers
             };
         throw new HttpException('Não há dados', HttpStatus.NO_CONTENT)
-
     }
 
     @Post('/profile')
     @HttpCode(200)
     @Render('pages/user/profile')
     async profile(@Body('id') id) {
-        const user = await this.service.getUser(id)
+        const user = await this.service.getOne(id)
         if (user)
             return {
                 title: 'Perfil',
@@ -52,10 +50,10 @@ export class UserController {
     @Post('/')
     @Render('pages/user/list')
     async createUser(@Res() res, @Body() data) {
-        const newUser = await this.service.createUser(data)
+        const newUser = await this.service.create(data)
 
         if (newUser) {
-            res.redirect('/user')
+            res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
         }
         return {
             Users: newUser
@@ -64,11 +62,23 @@ export class UserController {
 
     @Post('/delete')
     @HttpCode(200)
-    async deletUser(@Res() res, @Body('id') id) {
-        const deleteUser = await this.service.deleteUser(id)
+    async deleteUser(@Res() res, @Body('id') id) {
+        const deleteUser = await this.service.delete(id)
 
         if (deleteUser) {
-            res.redirect('/user')
+            return res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
+        }
+    }
+    @Post('/alter/:id')
+    @HttpCode(200)
+    async alterUser(@Res() res, @Body() data, @Param('id') id) {
+        const altertUser = await this.service.update({
+            data: { ...data },
+            where: { id: Number(id) },
+        })
+
+        if (altertUser) {
+            res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
         }
     }
 

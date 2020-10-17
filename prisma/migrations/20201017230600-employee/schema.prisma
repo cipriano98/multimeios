@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
+    url = "***"
 }
 
 model Profile {
@@ -23,13 +23,13 @@ model User {
     key              String   @unique @default(uuid())
     email            String   @unique
     cpf              String   @unique
-    fullname         String
     datebirth        String?
-    preferencialname String?
+    fullname         String
     nickname         String?  @unique
     role             Role     @default(USER)
     createdat        DateTime @default(now())
     updatedat        DateTime @updatedAt
+    preferencialname String?
     Profile          Profile?
 }
 
