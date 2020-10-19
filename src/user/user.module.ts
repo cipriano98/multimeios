@@ -8,8 +8,7 @@ import { UserService } from "./user.service";
 @Module({
     imports: [],
     controllers: [
-        UserController,
-        AuthController
+        UserController
     ],
     providers: [
         UserService,

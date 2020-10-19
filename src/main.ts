@@ -26,8 +26,8 @@ async function bootstrap() {
 
     app.use(unlessMiddleware.use(
         tokenMiddleware.use,
-        `/user/signin`,
-        `/health/status`,
+        '/admin/signin',
+        '/health/status',
     ))
 
     app.useStaticAssets(join(__dirname, '..', 'public'));

@@ -17,14 +17,14 @@ O trabalho consiste em desenvolver uma aplicação com **`funcionalidades admini
 
 ## Conceito C:
 
-- [ ] Aplicação inicial, realizando pelo menos dois cadastros;
-- [ ] Realização do login;
+- [X] Aplicação inicial, realizando pelo menos dois cadastros;
+- [X] Realização do login;
 - [x] Persistência de dados;
 - [x] Utilização adequada do Framework Back-end.
 
 ## Conceito B:
 
-- [ ] Realização das funcionalidades para o conceito C;
+- [X] Realização das funcionalidades para o conceito C;
 - [ ] Aplicação praticamente funcional - realizando os cadastros e a funcionalidade de negócio;
 - [x] Cadastros simples de usuários, edição de perfil;
 - [ ] Interface gráfica adequada;

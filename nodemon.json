@@ -1,5 +1,5 @@
 {
   "watch": ["src", "views"],
   "ext": "ts, js,hbs",
-  "exec": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/main.ts"
+  "exec": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/main.ts --ignore tests"
 }
