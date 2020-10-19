@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware, Next, Req, Res } from '@nestjs/common';
-const jwt = require('jsonwebtoken')
+import jwt = require('jsonwebtoken')
 
 const dataUTC = new Date().getUTCFullYear() + '/' + (new Date().getUTCMonth() + 1) + '/' + new Date().getUTCDate();
 const horaUTC = new Date().getUTCHours() + ':' + new Date().getUTCMinutes() + ':' + new Date().getUTCSeconds() + ' UTC';
@@ -8,8 +8,8 @@ export class TokenMiddleware implements NestMiddleware {
 
     use(@Req() req, @Res() res, @Next() next) {
 
-        const authorizedLog = logedIn => {
-            console.log('\nAcesso permitido ao usuário', logedIn.email)
+        const authorizedLog = loggedIn => {
+            console.log('\nAcesso permitido ao usuário', loggedIn.email)
             console.log("by temAcesso")
 
             console.log("\n")
@@ -20,12 +20,12 @@ export class TokenMiddleware implements NestMiddleware {
         }
 
 
-        const hasAccess = logedIn => {
+        const hasAccess = loggedIn => {
 
             // TODO: Verificação de acesso aos recursos
 
-            if (logedIn) {
-                authorizedLog(logedIn)
+            if (loggedIn) {
+                authorizedLog(loggedIn)
                 return true
             }
             console.log('\nAcesso negado em:', req.headers.referer)
@@ -42,8 +42,22 @@ export class TokenMiddleware implements NestMiddleware {
             console.log("by TokenMiddleware\n");
         }
 
-        const token = process.env.X_ACCESS_TOKEN;
-        console.log("token:", process.env.X_ACCESS_TOKEN);
+        const getToken = () => {
+            const cookies = req.headers.cookie ? req.headers.cookie.split('; ') : []
+
+            let token: string = ""
+            cookies.forEach(cookie => {
+                console.log(`cookie → ${JSON.stringify(cookie)}`)
+                token = cookie && cookie.includes('token=')
+                    ? cookie.replace('token=', '') : ''
+                return token
+            });
+            console.log(token);
+            return token
+        }
+
+        const token = getToken()
+        console.log(token);
 
         if (!token) {
             return res
@@ -62,7 +76,7 @@ export class TokenMiddleware implements NestMiddleware {
                     const tokenError = {
                         name: err.name,
                         message: 'Sua sessão expirou. Efetue o login novamente',
-                        expiredAt: err.expiredAt
+                        expiredAt: err['expiredAt']
                     }
                     unauthorizedLog()
 
@@ -70,16 +84,18 @@ export class TokenMiddleware implements NestMiddleware {
                 }
 
                 unauthorizedLog()
-
+                // res.setHeader("", token);
                 return res.status(403).send({
                     auth: false,
+                    // expiredAt: decoded.expiredAt,
                     message: "Falha ao autenticar o token.",
                     warning: 'Token fornecido está incorreto'
                 });
             }
             // ! No momento, sempre vai retornar true, TODO à fazer em temAcesso
-            if (hasAccess(decoded))
+            if (hasAccess(decoded)) {
                 next();
+            }
             else
                 return res.status(403).json({
                     auth: false,

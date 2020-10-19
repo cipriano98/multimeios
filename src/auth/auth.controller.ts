@@ -24,8 +24,8 @@ export class AuthController {
 
     @Get('/signin')
     @Render('pages/employee/login')
-    async pageSignin() {
-        process.env.X_ACCESS_TOKEN = ""
+    async pageSignin(@Res() res) {
+        res.cookie('token', '')
         return {
             title: 'Login',
             login: true
@@ -41,23 +41,25 @@ export class AuthController {
 
         try {
 
-            const existsEmoloyee = await this.employeeService.getByEmail(data.email);
-            if (existsEmoloyee && existsEmoloyee.email != null) {
-                if (await bcrypt.compare(data.secret, existsEmoloyee.secret)) {
-                    delete existsEmoloyee.secret
+            const existsEmployee = await this.employeeService.getByEmail(data.email);
+            if (existsEmployee && existsEmployee.email != null) {
+                if (await bcrypt.compare(data.secret, existsEmployee.secret)) {
+                    delete existsEmployee.secret
                     const secret = process.env.SERVER_SECRET_TOKEN || 'Currículo→Único';
                     const token = jwt.sign({
-                        id: existsEmoloyee.id,
-                        email: existsEmoloyee.email,
-                        role: existsEmoloyee.role,
-                        name: existsEmoloyee.preferencialname || existsEmoloyee.fullname,
+                        id: existsEmployee.id,
+                        email: existsEmployee.email,
+                        role: existsEmployee.role,
+                        name: existsEmployee.preferencialname || existsEmployee.fullname,
                     }, secret, { expiresIn: '2h' });
 
-                    console.log(`\n${existsEmoloyee.role} ${existsEmoloyee.email} acaba de fazer login no sistema`);
-                    console.log("x-access-token:", token, '\n');
+                    console.log(`\n${existsEmployee.role} ${existsEmployee.email} acaba de fazer login no sistema`);
+                    console.log("token:", token, '\n');
 
-                    process.env.X_ACCESS_TOKEN = token
-                    console.dir(process.env.X_ACCESS_TOKEN)
+                    res.cookie('token', token, {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                      });
                     res.status(200)
                         // .json({
                         //     auth: true,
