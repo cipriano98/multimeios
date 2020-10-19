@@ -42,7 +42,8 @@ export class TokenMiddleware implements NestMiddleware {
             console.log("by TokenMiddleware\n");
         }
 
-        const token = req.headers["x-access-token"];
+        const token = process.env.X_ACCESS_TOKEN;
+        console.log("token:", process.env.X_ACCESS_TOKEN);
 
         if (!token) {
             return res
