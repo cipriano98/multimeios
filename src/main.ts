@@ -9,11 +9,13 @@ import { UnlessMiddleware } from './middleware/router/unless.middleware';
 /**
  * unless Middleware
  */
-const unlessMiddleware = new UnlessMiddleware()
+const unlessMiddleware = new UnlessMiddleware().use
+
 /**
  * token Middleware
  */
-const tokenMiddleware = new TokenMiddleware()
+const tokenMiddleware = new TokenMiddleware().use
+
 /**
  * hot reload
  */
@@ -23,9 +25,8 @@ declare const module: any;
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-
-    app.use(unlessMiddleware.use(
-        tokenMiddleware.use,
+    app.use(unlessMiddleware(
+        tokenMiddleware,
         '/admin/signin',
         '/health/status',
     ))
