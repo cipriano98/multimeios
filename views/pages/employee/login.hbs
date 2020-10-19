@@ -1,3 +1,23 @@
-<form>
 
-</form>
+<div class="container">
+    <h1>Login</h1>
+
+    <form action="signin" method="POST" class="needs-validation" novalidate>
+        <div class="col-md-4 mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="secret" placeholder="*****" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+    </form>
+</div>
+
