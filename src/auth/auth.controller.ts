@@ -45,7 +45,7 @@ export class AuthController {
             if (existsEmployee && existsEmployee.email != null) {
                 if (await bcrypt.compare(data.secret, existsEmployee.secret)) {
                     delete existsEmployee.secret
-                    const secret = process.env.SERVER_SECRET_TOKEN || 'Currículo→Único';
+                    const secret = process.env.SERVER_SECRET_TOKEN || 'multi→Meios';
                     const token = jwt.sign({
                         id: existsEmployee.id,
                         email: existsEmployee.email,
@@ -54,7 +54,6 @@ export class AuthController {
                     }, secret, { expiresIn: '2h' });
 
                     console.log(`\n${existsEmployee.role} ${existsEmployee.email} acaba de fazer login no sistema`);
-                    console.log("token:", token, '\n');
 
                     res.cookie('token', token, {
                         expires: new Date(Date.now() + 7200000),

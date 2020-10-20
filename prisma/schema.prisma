@@ -7,17 +7,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Profile {
-    id        String     @id
-    bio       String?
-    pseudonym String?
-    userId    Int        @unique
-    createdat DateTime   @default(now())
-    updatedat DateTime
-    User      User       @relation(fields: [userId], references: [id])
-    Employee  Employee[]
-}
-
 model User {
     id               Int      @id @default(autoincrement())
     key              String   @unique @default(uuid())
@@ -28,9 +17,10 @@ model User {
     preferencialname String?
     nickname         String?  @unique
     role             Role     @default(USER)
+    online           Online   @default(OFFLINE)
+    computer         Computer @default(NONE)
     createdat        DateTime @default(now())
     updatedat        DateTime @updatedAt
-    Profile          Profile?
 }
 
 model Employee {
@@ -44,8 +34,6 @@ model Employee {
     role             Role     @default(EMPLOYER)
     createdat        DateTime @default(now())
     updatedat        DateTime @updatedAt
-    Profile          Profile? @relation(fields: [profileId], references: [id])
-    profileId        String?
 }
 
 enum Role {
@@ -53,4 +41,23 @@ enum Role {
     CANDIDATE
     EMPLOYER
     USER
+}
+
+enum Online {
+    ONLINE
+    OFFLINE
+}
+
+enum Computer {
+    NONE
+    UM
+    DOIS
+    TRES
+    QUATRO
+    CINCO
+    SEIS
+    SETE
+    OITO
+    NOVE
+    DEZ
 }

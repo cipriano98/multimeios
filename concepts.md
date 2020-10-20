@@ -25,7 +25,7 @@ O trabalho consiste em desenvolver uma aplicação com **`funcionalidades admini
 ## Conceito B:
 
 - [X] Realização das funcionalidades para o conceito C;
-- [ ] Aplicação praticamente funcional - realizando os cadastros e a funcionalidade de negócio;
+- [x] Aplicação praticamente funcional - realizando os cadastros e a funcionalidade de negócio;
 - [x] Cadastros simples de usuários, edição de perfil;
 - [ ] Interface gráfica adequada;
 - [x] Utilização de um sistema de controle de versão (ex: git) e de um ambiente de colaboração e gerenciamento de código baseado nesse controle de versão (ex: github, bitbucket).

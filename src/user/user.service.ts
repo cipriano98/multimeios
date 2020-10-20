@@ -29,6 +29,10 @@ export class UserService {
         where: UserWhereUniqueInput;
     }) {
         const { where, data } = params;
+        data.computer === "NONE"
+            ? data.online = "OFFLINE"
+            : data.online = "ONLINE"
+            
         return await this.prisma.user.update({
             data,
             where

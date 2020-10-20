@@ -52,7 +52,6 @@ export class TokenMiddleware implements NestMiddleware {
                     ? cookie.replace('token=', '') : ''
                 return token
             });
-            console.log(token);
             return token
         }
 

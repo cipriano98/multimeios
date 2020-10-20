@@ -14,21 +14,24 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="cpf">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required value="{{User.cpf}}">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required
+                    value="{{User.cpf}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="{{User.email}}">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required
+                    value="{{User.email}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="date">Data de nascimento</label>
-                <input type="date" class="form-control" id="date" name="datebirth" placeholder="Data de nascimento" required value="{{User.datebirth}}">
+                <input type="date" class="form-control" id="date" name="datebirth" placeholder="Data de nascimento"
+                    required value="{{User.datebirth}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -44,6 +47,29 @@
                     <div class="invalid-feedback">
                         Please choose a username.
                     </div>
+                </div>
+            </div>
+        </div>
+        <h2>Usuário online?</h2>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="computer">Usando o computador</label>
+                <select class="form-control" name="computer" id="computer" required>
+                    <option value="{{User.computer}}" selected>{{User.computer}}</option>
+                    <option value="NONE">NONE</option>
+                    <option value="UM">UM</option>
+                    <option value="DOIS">DOIS</option>
+                    <option value="TRES">TRES</option>
+                    <option value="QUATRO">QUATRO</option>
+                    <option value="CINCO">CINCO</option>
+                    <option value="SEIS">SEIS</option>
+                    <option value="SETE">SETE</option>
+                    <option value="OITO">OITO</option>
+                    <option value="NOVE">NOVE</option>
+                    <option value="DEZ">DEZ</option>
+                </select>
+                <div class="valid-feedback">
+                    Looks good!
                 </div>
             </div>
         </div>

@@ -6,19 +6,27 @@
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
-                <th>ID</th>
                 <th>Nome</th>
-                <th>Email</th>
-                <th>role</th>
+                <th>Username</th>
+                <th>Online</th>
+                <th>Computador</th>
                 <th>Ação</th>
             </thead>
 
             {{#each Users}}
             <tr>
-                <td>{{this.id}}</td>
-                <td>{{this.fullname}}</td>
-                <td style="width: 50px;">{{this.email}}</td>
-                <td>{{this.role}}</td>
+                <td>
+                    {{this.fullname}}
+                </td>
+                <td style="width: 50px;">
+                    {{this.nickname}}
+                </td>
+                <td>
+                    {{this.online}}
+                </td>
+                <td>
+                    {{this.computer}}
+                </td>
                 <td>
                     <div class="row">
                         <form action="user/profile" method="POST">
