@@ -56,7 +56,7 @@ export class TokenMiddleware implements NestMiddleware {
         }
 
         const token = getToken()
-        console.log(token);
+        console.log('\nToken gerado →', token);
 
         if (!token) {
             return res
@@ -68,8 +68,9 @@ export class TokenMiddleware implements NestMiddleware {
                 });
         }
 
-        const secret = process.env.SERVER_SECRET_TOKEN || 'Currículo→Único';
+        const secret = process.env.SERVER_SECRET_TOKEN || 'multi→Meios';
         jwt.verify(token, secret, (err, decoded) => {
+            console.dir(decoded)
             if (err) {
                 if (err.message === 'jwt expired') {
                     const tokenError = {
@@ -86,6 +87,7 @@ export class TokenMiddleware implements NestMiddleware {
                 // res.setHeader("", token);
                 return res.status(403).send({
                     auth: false,
+                    error: err,
                     // expiredAt: decoded.expiredAt,
                     message: "Falha ao autenticar o token.",
                     warning: 'Token fornecido está incorreto'

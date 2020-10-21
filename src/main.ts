@@ -5,6 +5,7 @@ import { join } from 'path';
 import hbs = require('hbs');
 import { TokenMiddleware } from './middleware/token/token.middleware';
 import { UnlessMiddleware } from './middleware/router/unless.middleware';
+// import chalk = require('chalk')
 
 /**
  * unless Middleware
@@ -50,7 +51,7 @@ async function bootstrap() {
     const port = process.env.PORT || 3000
     await app.listen(port, '0.0.0.0', () => {
         console.clear()
-        console.log(`\n${process.env.npm_package_NAME} is running in http://localhost:${port}`)
+        // console.log(`\n[${chalk.bold.hex('#28f000')(process.env.npm_package_NAME.toUpperCase())}] is running in ${chalk.blue.underline(`http://localhost:${port}`)}`)
         console.log(process.env.npm_package_DESCRIPTION)
         console.log(`${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}\n`);
     });
