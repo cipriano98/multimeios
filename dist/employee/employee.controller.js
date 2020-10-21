@@ -44,8 +44,9 @@ let EmployeeController = class EmployeeController {
         };
     }
     async createEmployee(res, data) {
-        data.secret = bcrypt.hashSync(data.secret, 10);
-        const newEmployee = await this.service.create(data);
+        const secret = Math.random().toString(36).slice(-10);
+        data.secret = bcrypt.hashSync(secret, 10);
+        const newEmployee = await this.service.create(data, secret);
         if (newEmployee) {
             res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
         }

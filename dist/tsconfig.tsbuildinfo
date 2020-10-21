@@ -1382,7 +1382,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.service.ts": {
-        "version": "aeaaa3d245336f8b6968f7ed890eb024dc69ec2582a43f01545475ca332c4c61",
+        "version": "52700ac419127f9064e523f9694f1b77313c70483dc39adda366fc9722a7333b",
         "signature": "3165988dc490c901e506920a5cc55ef8c3d302e2d88e3c51f4528dcdeb62e8df",
         "affectsGlobalScope": false
       },
@@ -1412,8 +1412,8 @@
         "affectsGlobalScope": false
       },
       "../src/employee/employee.service.ts": {
-        "version": "458c9869f410e89a753da2967c835359eaf2b5b357924938b3275eda2296132c",
-        "signature": "14dead5f94f5956377f8b0b218d0c67d2dd2b0d699a0f4c5af180029f688d34c",
+        "version": "6ffa321603d0745dc00486066738abc403cc09200551d0067b060a6f64bc7aaf",
+        "signature": "f925033cbe3ac833aa7e7b22c94eb0483cbfdbf7ed3dd5270d9d5d97e7b8e6cf",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/bcrypt/index.d.ts": {
@@ -1422,7 +1422,7 @@
         "affectsGlobalScope": false
       },
       "../src/employee/employee.controller.ts": {
-        "version": "6da1d90c4e25775ded14ba953c788575fccf0a7348c1c6b446466bfa00b6e39b",
+        "version": "4e582dc78e62c567871b7b6dd0b50546ba2cf35b856b650c9119378bd36c1f50",
         "signature": "cdde835de1a4a5968d4230dea8024920e713d5e0caf2a3fce679c7ac1c8bbb01",
         "affectsGlobalScope": false
       },
@@ -1432,8 +1432,8 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.controller.ts": {
-        "version": "8bb69db49c71aa458629b3d7ec6beabbd75cf47dca7f2052cac461690ec5eef1",
-        "signature": "62d37e0908a499dcf791b3d76585569435f85986b59dbb6ba88e6bd7f69936a3",
+        "version": "b542e6d7ba9c55dc9996cc4937f4ec9818ac3f44bdf8eab58223a32fdb12b5b6",
+        "signature": "5906271e34bd93a3a06958129af228db44b5a109c94c4ed9aedca24c399c77d6",
         "affectsGlobalScope": false
       },
       "../src/employee/employee.module.ts": {
@@ -1795,11 +1795,6 @@
         "version": "eca60f67b566854f6bceab599d9c1acbf21554a6f1a5dfd84e57bfe77248adb6",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
-      },
-      "../src/config/mailerconfig.ts": {
-        "version": "4913808f9b9d63e898751fedff30cbb08194cad15cd35a26b90a3c66a2953009",
-        "signature": "7b57f72383f1faff22b5809b54a34e9a6b903762d73db2d70a9050c5b9b6865d",
-        "affectsGlobalScope": true
       },
       "../node_modules/@types/babel__generator/node_modules/@babel/types/lib/index.d.ts": {
         "version": "9eac0dd4de5669db2b8321dffa400b997f7b21181118efc7a2c1743d93d4be57",
@@ -5172,7 +5167,6 @@
       "../src/app.service.ts",
       "../src/auth/auth.controller.ts",
       "../src/config/configuration.ts",
-      "../src/config/mailerconfig.ts",
       "../src/employee/employee.controller.ts",
       "../src/employee/employee.module.ts",
       "../src/employee/employee.service.ts",

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeeService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const nodemailer = require('nodemailer');
 let EmployeeService = class EmployeeService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -20,6 +21,43 @@ let EmployeeService = class EmployeeService {
         return await this.prisma.employee.findOne({
             where: { id }
         });
+    }
+    sendEmail(email, type, value) {
+        const sendEmail = {
+            from: 'uniquecurriculum@gmail.com',
+            to: email,
+            subject: '',
+            html: ''
+        };
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.SEND_MAIL_HOST || 'uniquecurriculum@gmail.com',
+                pass: process.env.SEND_MAIL_SECRET || 'curriculo@unico'
+            },
+            debug: true,
+            logger: true
+        });
+        if (type === 'SECRET') {
+            sendEmail.subject = 'Sua senha para acesso ao nosso sistema',
+                sendEmail.html = `
+                    <p>
+                        Seu acesso ao multimeios fui liberado! <br>
+                        email: ${email} <br>
+                        password: ${value} <br>
+                        <a href="https://multi-meios.herokuapp.com/admin/signin">Acesse nosso sistema</a> <br>
+                        ou <br>
+                        <a href="http://localhost:3333/admin/signin">Localhost</a>
+                    </p>`;
+        }
+        if (sendEmail.subject != '' || sendEmail.html != '')
+            return transport.sendMail(sendEmail, (err, info) => {
+                if (err) {
+                    console.dir(err);
+                    throw err;
+                }
+                console.log('Email enviado! Leia as informações adicionais: ', info);
+            });
     }
     async delete(id) {
         return await this.prisma.employee.delete({
@@ -35,7 +73,8 @@ let EmployeeService = class EmployeeService {
     async getMany() {
         return await this.prisma.employee.findMany({});
     }
-    async create(data) {
+    async create(data, pass) {
+        this.sendEmail(data.email, 'SECRET', pass);
         return await this.prisma.employee.create({
             data: Object.assign({}, data)
         });

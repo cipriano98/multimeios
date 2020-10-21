@@ -21,13 +21,6 @@ let AuthController = class AuthController {
     constructor(employeeService) {
         this.employeeService = employeeService;
     }
-    async signup(res, data) {
-        data.secret = bcrypt.hashSync(data.secret, 10);
-        const Employee = await this.employeeService.create(data);
-        if (Employee.hasOwnProperty('id'))
-            return res.status(201).json({ Employee });
-        return res.status(400).json(Employee);
-    }
     async pageSignin(res) {
         res.cookie('token', '');
         return {
@@ -92,13 +85,6 @@ let AuthController = class AuthController {
         }
     }
 };
-__decorate([
-    common_1.Post('/signup'),
-    __param(0, common_1.Res()), __param(1, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "signup", null);
 __decorate([
     common_1.Get('/signin'),
     common_1.Render('pages/employee/login'),
