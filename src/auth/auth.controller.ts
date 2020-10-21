@@ -68,6 +68,10 @@ export class AuthController {
                         expires: new Date(Date.now() + 7200000),
                         httpOnly: true
                     });
+                    res.cookie('name', existsEmployee['preferencialname'] || existsEmployee['fullname'], {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                    });
                     res.status(200)
                         // .json({
                         //     auth: true,

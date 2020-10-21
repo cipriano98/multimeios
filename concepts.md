@@ -35,4 +35,4 @@ O trabalho consiste em desenvolver uma aplicação com **`funcionalidades admini
 - [ ] Realização das funcionalidades para o conceito B;
 - [ ] Aplicação totalmente funcional, com o controle de usuário (e login) realizado completamente, incluindo enviar e-mail para cadastrar/recadastrar senha;
 - [ ] Utilização de alguma funcionalidade diferenciada: testes unitários, técnicas de caching, técnicas de segurança ou outras (ver com o professor);
-- [ ] Implantação do sistema na nuvem ou em um serviço de hospedagem.
+- [x] Implantação do sistema na nuvem ou em um serviço de hospedagem.

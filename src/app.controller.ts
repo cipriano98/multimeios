@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,10 +7,10 @@ export class AppController {
 
     @Get()
     @Render('pages/home')
-    root() {
+    root(@Req() req) {
         return {
             title: 'Home',
-            message: this.appService.getHello()
+            message: this.appService.getCookie(req.headers.cookie)
         };
     }
 

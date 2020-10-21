@@ -1,6 +1,8 @@
 import { Injectable, NestMiddleware, Next, Req, Res } from '@nestjs/common';
 import jwt = require('jsonwebtoken')
+import { AppService } from '../../app.service';
 
+const appService = new AppService()
 const dataUTC = new Date().getUTCFullYear() + '/' + (new Date().getUTCMonth() + 1) + '/' + new Date().getUTCDate();
 const horaUTC = new Date().getUTCHours() + ':' + new Date().getUTCMinutes() + ':' + new Date().getUTCSeconds() + ' UTC';
 @Injectable()
@@ -42,20 +44,7 @@ export class TokenMiddleware implements NestMiddleware {
             console.log("by TokenMiddleware\n");
         }
 
-        const getToken = () => {
-            const cookies = req.headers.cookie ? req.headers.cookie.split('; ') : []
-
-            let token: string = ""
-            cookies.forEach(cookie => {
-                console.log(`cookie → ${JSON.stringify(cookie)}`)
-                token = cookie && cookie.includes('token=')
-                    ? cookie.replace('token=', '') : ''
-                return token
-            });
-            return token
-        }
-
-        const token = getToken()
+        const token = appService.getCookie(req.headers.cookie, 'token')
         console.log('\nToken gerado →', token);
 
         if (!token) {
