@@ -12,92 +12,91 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
+exports.EmployeeController = void 0;
 const common_1 = require("@nestjs/common");
-const user_service_1 = require("./user.service");
-let UserController = class UserController {
+const employee_service_1 = require("./employee.service");
+const bcrypt = require("bcrypt");
+let EmployeeController = class EmployeeController {
     constructor(service) {
         this.service = service;
     }
-    async users() {
-        const getUsers = await this.service.getMany();
-        if (getUsers)
+    async employees() {
+        const getEmployees = await this.service.getMany();
+        if (getEmployees)
             return {
-                title: 'Usuários',
-                Users: getUsers
+                title: 'Funcionários',
+                Employees: getEmployees
             };
         throw new common_1.HttpException('Não há dados', common_1.HttpStatus.NO_CONTENT);
     }
     async profile(id) {
-        const user = await this.service.getOne(id);
-        if (user)
+        const employee = await this.service.getOne(id);
+        if (employee)
             return {
                 title: 'Perfil',
-                User: user
+                Employee: employee
             };
-        throw new common_1.HttpException('O usuário com este id não existe', common_1.HttpStatus.NOT_FOUND);
+        throw new common_1.HttpException('O funcionário com este id não existe', common_1.HttpStatus.NOT_FOUND);
     }
     async add() {
         return {
-            title: 'Novo usuário',
+            title: 'Novo Funcionário',
         };
     }
-    async createUser(res, data) {
-        const newUser = await this.service.create(data);
-        if (newUser) {
-            res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/user');
+    async createEmployee(res, data) {
+        data.secret = bcrypt.hashSync(data.secret, 10);
+        const newEmployee = await this.service.create(data);
+        if (newEmployee) {
+            res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
         }
         return {
-            Users: newUser
+            Employees: newEmployee
         };
     }
-    async deleteUser(res, id) {
-        const deleteUser = await this.service.delete(id);
-        if (deleteUser) {
-            return res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/user');
+    async deleteEmployee(res, id) {
+        const deleteEmployee = await this.service.delete(id);
+        if (deleteEmployee) {
+            return res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
         }
     }
-    async alterUser(res, data, id) {
-        const altertUser = await this.service.update({
-            data: Object.assign({}, data),
-            where: { id: Number(id) },
-        });
-        if (altertUser) {
-            res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/user');
+    async alterEmployee(res, data, id) {
+        const altertEmployee = await this.service.update(data, id);
+        if (altertEmployee) {
+            res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
         }
     }
 };
 __decorate([
     common_1.Get(),
-    common_1.Render('pages/user/list'),
+    common_1.Render('pages/employee/list'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "users", null);
+], EmployeeController.prototype, "employees", null);
 __decorate([
     common_1.Post('/profile'),
     common_1.HttpCode(200),
-    common_1.Render('pages/user/profile'),
+    common_1.Render('pages/employee/profile'),
     __param(0, common_1.Body('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "profile", null);
+], EmployeeController.prototype, "profile", null);
 __decorate([
     common_1.Get('/add'),
-    common_1.Render('pages/user/create'),
+    common_1.Render('pages/employee/create'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "add", null);
+], EmployeeController.prototype, "add", null);
 __decorate([
     common_1.Post('/'),
-    common_1.Render('pages/user/list'),
+    common_1.Render('pages/employee/list'),
     __param(0, common_1.Res()), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "createUser", null);
+], EmployeeController.prototype, "createEmployee", null);
 __decorate([
     common_1.Post('/delete'),
     common_1.HttpCode(200),
@@ -105,7 +104,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "deleteUser", null);
+], EmployeeController.prototype, "deleteEmployee", null);
 __decorate([
     common_1.Post('/alter/:id'),
     common_1.HttpCode(200),
@@ -113,10 +112,10 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "alterUser", null);
-UserController = __decorate([
-    common_1.Controller('user'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
-], UserController);
-exports.UserController = UserController;
-//# sourceMappingURL=user.controller.js.map
+], EmployeeController.prototype, "alterEmployee", null);
+EmployeeController = __decorate([
+    common_1.Controller('employee'),
+    __metadata("design:paramtypes", [employee_service_1.EmployeeService])
+], EmployeeController);
+exports.EmployeeController = EmployeeController;
+//# sourceMappingURL=employee.controller.js.map

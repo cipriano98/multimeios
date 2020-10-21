@@ -16,5 +16,6 @@ export declare class UserController {
     createUser(res: any, data: any): Promise<{
         Users: import(".prisma/client").User;
     }>;
-    deletUser(res: any, id: any): Promise<void>;
+    deleteUser(res: any, id: any): Promise<any>;
+    alterUser(res: any, data: any, id: any): Promise<void>;
 }

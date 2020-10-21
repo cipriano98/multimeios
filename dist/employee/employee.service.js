@@ -9,61 +9,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
+exports.EmployeeService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-let UserService = class UserService {
+let EmployeeService = class EmployeeService {
     constructor(prisma) {
         this.prisma = prisma;
     }
     async getOne(id) {
-        return await this.prisma.user.findOne({
-            where: {
-                id: Number(id)
-            }
+        return await this.prisma.employee.findOne({
+            where: { id }
         });
     }
     async delete(id) {
-        return await this.prisma.user.delete({
-            where: {
-                id: Number(id)
-            }
+        return await this.prisma.employee.delete({
+            where: { id }
         });
     }
-    async update(params) {
-        const { where, data } = params;
-        data.computer === "NONE"
-            ? data.online = "OFFLINE"
-            : data.online = "ONLINE";
-        return await this.prisma.user.update({
+    async update(data, id) {
+        return await this.prisma.employee.update({
             data,
-            where
+            where: { id: id }
         });
     }
     async getMany() {
-        return await this.prisma.user.findMany({
-            where: {
-                NOT: {
-                    role: "ADMIN"
-                }
-            }
-        });
+        return await this.prisma.employee.findMany({});
     }
     async create(data) {
-        return await this.prisma.user.create({
+        return await this.prisma.employee.create({
             data: Object.assign({}, data)
         });
     }
     async getByEmail(email) {
-        const getByEmail = await this.prisma.user.findOne({
+        const getByEmail = await this.prisma.employee.findOne({
             where: { email },
         });
         return getByEmail;
     }
 };
-UserService = __decorate([
+EmployeeService = __decorate([
     common_1.Injectable(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], UserService);
-exports.UserService = UserService;
-//# sourceMappingURL=user.service.js.map
+], EmployeeService);
+exports.EmployeeService = EmployeeService;
+//# sourceMappingURL=employee.service.js.map
