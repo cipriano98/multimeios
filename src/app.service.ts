@@ -20,4 +20,5 @@ export class AppService {
         if(getCookie) return newCookie[getCookie] || ""
         return newCookie;
     }
+
 }

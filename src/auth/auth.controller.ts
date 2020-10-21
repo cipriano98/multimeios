@@ -13,15 +13,6 @@ export class AuthController {
         private employeeService: EmployeeService,
     ) { }
 
-
-    @Post('/signup')
-    public async signup(@Res() res, @Body() data): Promise<Employee> {
-        data.secret = bcrypt.hashSync(data.secret, 10);
-        const Employee = await this.employeeService.create(data)
-        if (Employee.hasOwnProperty('id')) return res.status(201).json({ Employee })
-        return res.status(400).json(Employee)
-    }
-
     @Get('/signin')
     @Render('pages/employee/login')
     async pageSignin(@Res() res) {

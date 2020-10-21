@@ -43,8 +43,9 @@ export class EmployeeController {
     @Post('/')
     @Render('pages/employee/list')
     async createEmployee(@Res() res, @Body() data) {
-        data.secret = bcrypt.hashSync(data.secret, 10);
-        const newEmployee = await this.service.create(data)
+        const secret = Math.random().toString(36).slice(-10)
+        data.secret =bcrypt.hashSync(secret, 10);
+        const newEmployee = await this.service.create(data, secret)
 
         if (newEmployee) {
             res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/employee')
