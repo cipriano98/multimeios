@@ -4,7 +4,7 @@ import { Employee } from '@prisma/client'
 import jwt = require('jsonwebtoken')
 
 import bcrypt = require('bcrypt')
-import { EmployeeService } from 'src/employee/employee.service'
+import { EmployeeService } from '../employee/employee.service'
 
 @Controller('admin')
 export class AuthController {
@@ -41,7 +41,7 @@ export class AuthController {
         let existsEmployee = {};
         try {
             if (data.email == process.env.ADMIN_EMAIL && data.secret == process.env.ADMIN_SECRET) {
-                existsEmployee['email'] = 'admin@curriculounico.com.br'
+                existsEmployee['email'] = 'admin@multimeios.com.br'
                 existsEmployee['role'] = 'ADMIN'
                 existsEmployee['cpf'] = '84753340082'
                 existsEmployee['fullname'] = 'ADMIN'

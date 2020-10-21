@@ -1,5 +1,5 @@
 import { Employee } from '@prisma/client';
-import { EmployeeService } from 'src/employee/employee.service';
+import { EmployeeService } from '../employee/employee.service';
 export declare class AuthController {
     private employeeService;
     constructor(employeeService: EmployeeService);

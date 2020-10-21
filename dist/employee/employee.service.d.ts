@@ -1,5 +1,5 @@
 import { Employee, EmployeeUpdateInput } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 export declare class EmployeeService {
     private prisma;
     constructor(prisma: PrismaService);
