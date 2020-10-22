@@ -14,32 +14,43 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="cpf">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required value="{{Employee.cpf}}">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required
+                    value="{{Employee.cpf}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="{{Employee.email}}">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required
+                    value="{{Employee.email}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="date">Data de nascimento</label>
-                <input type="date" class="form-control" id="date" name="datebirth" placeholder="Data de nascimento" required value="{{Employee.datebirth}}">
+                <input type="date" class="form-control" id="date" name="datebirth" placeholder="Data de nascimento"
+                    required value="{{Employee.datebirth}}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-           <div class="col-md-4 mb-3">
-            <label for="name">Como gostaria de ser chamado?</label>
-            <input type="text" class="form-control" name="preferencialname" id="name" placeholder="Nome preferido" required value="{{Employee.preferencialname}}">
-            <div class="valid-feedback">
-                Looks good!
+            <div class="col-md-4 mb-3">
+                <label for="name">Como gostaria de ser chamado?</label>
+                <input type="text" class="form-control" name="preferencialname" id="name" placeholder="Nome preferido"
+                    required value="{{Employee.preferencialname}}">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
-        </div>
+            <div class="col-md-4 mb-3">
+                <label for="password">nova senha</label>
+                <input type="password" class="form-control" name="secret" id="password" placeholder="********" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
         </div>
 
         <button class="btn btn-primary" type="submit">Alterar</button>

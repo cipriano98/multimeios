@@ -14,40 +14,50 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const app_service_1 = require("../app.service");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
-    constructor(service) {
+    constructor(service, appService) {
         this.service = service;
+        this.appService = appService;
     }
-    async users() {
+    async users(req) {
         const getUsers = await this.service.getMany();
         if (getUsers)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
                 title: 'Usuários',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 Users: getUsers
             };
         throw new common_1.HttpException('Não há dados', common_1.HttpStatus.NO_CONTENT);
     }
-    async profile(id) {
+    async profile(req, id) {
         const user = await this.service.getOne(id);
         if (user)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 title: 'Perfil',
                 User: user
             };
         throw new common_1.HttpException('O usuário com este id não existe', common_1.HttpStatus.NOT_FOUND);
     }
-    async add() {
+    async add(req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Novo usuário',
         };
     }
-    async createUser(res, data) {
+    async createUser(req, res, data) {
         const newUser = await this.service.create(data);
         if (newUser) {
             res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/user');
         }
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            cookie: this.appService.getCookie(req.headers.cookie),
             Users: newUser
         };
     }
@@ -70,32 +80,34 @@ let UserController = class UserController {
 __decorate([
     common_1.Get(),
     common_1.Render('pages/user/list'),
+    __param(0, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "users", null);
 __decorate([
     common_1.Post('/profile'),
     common_1.HttpCode(200),
     common_1.Render('pages/user/profile'),
-    __param(0, common_1.Body('id')),
+    __param(0, common_1.Req()), __param(1, common_1.Body('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "profile", null);
 __decorate([
     common_1.Get('/add'),
     common_1.Render('pages/user/create'),
+    __param(0, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "add", null);
 __decorate([
     common_1.Post('/'),
     common_1.Render('pages/user/list'),
-    __param(0, common_1.Res()), __param(1, common_1.Body()),
+    __param(0, common_1.Req()), __param(1, common_1.Res()), __param(2, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
@@ -116,7 +128,8 @@ __decorate([
 ], UserController.prototype, "alterUser", null);
 UserController = __decorate([
     common_1.Controller('user'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        app_service_1.AppService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

@@ -1,19 +1,29 @@
+import { AppService } from '../app.service';
 import { UserService } from './user.service';
 export declare class UserController {
     private service;
-    constructor(service: UserService);
-    users(): Promise<{
+    private appService;
+    constructor(service: UserService, appService: AppService);
+    users(req: any): Promise<{
+        admin: boolean;
         title: string;
+        id: any;
         Users: import(".prisma/client").User[];
     }>;
-    profile(id: any): Promise<{
+    profile(req: any, id: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
         User: import(".prisma/client").User;
     }>;
-    add(): Promise<{
+    add(req: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
     }>;
-    createUser(res: any, data: any): Promise<{
+    createUser(req: any, res: any, data: any): Promise<{
+        admin: boolean;
+        cookie: any;
         Users: import(".prisma/client").User;
     }>;
     deleteUser(res: any, id: any): Promise<any>;

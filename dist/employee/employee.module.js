@@ -12,6 +12,7 @@ const employee_controller_1 = require("./employee.controller");
 const employee_service_1 = require("./employee.service");
 const prisma_service_1 = require("../prisma/prisma.service");
 const auth_controller_1 = require("../auth/auth.controller");
+const app_service_1 = require("../app.service");
 let EmployeeModule = class EmployeeModule {
 };
 EmployeeModule = __decorate([
@@ -23,7 +24,8 @@ EmployeeModule = __decorate([
         ],
         providers: [
             employee_service_1.EmployeeService,
-            prisma_service_1.PrismaService
+            prisma_service_1.PrismaService,
+            app_service_1.AppService
         ]
     })
 ], EmployeeModule);

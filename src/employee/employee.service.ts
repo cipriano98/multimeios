@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Employee, EmployeeUpdateInput } from '@prisma/client';
+import { IsEmail } from 'class-validator';
 import { PrismaService } from '../prisma/prisma.service';
 
 const nodemailer = require('nodemailer');
@@ -59,7 +60,6 @@ export class EmployeeService {
             return transport.sendMail(sendEmail, (err, info) => {
                 if (err) {
                     console.dir(err)
-                    throw err
                 }
                 console.log('Email enviado! Leia as informações adicionais: ', info);
             });
@@ -84,6 +84,7 @@ export class EmployeeService {
     }
 
     async create(data: Employee, pass) {
+        if(data.email.includes('@'))
         this.sendEmail(data.email, 'SECRET', pass)
         return await this.prisma.employee.create({
             data: {

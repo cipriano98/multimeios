@@ -21,12 +21,16 @@ let AppController = class AppController {
     }
     root(req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Home',
             message: this.appService.getCookie(req.headers.cookie)
         };
     }
-    about() {
+    about(req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'About',
             message: 'hello About'
         };
@@ -43,8 +47,9 @@ __decorate([
 __decorate([
     common_1.Get('/about'),
     common_1.Render('pages/about'),
+    __param(0, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "about", null);
 AppController = __decorate([

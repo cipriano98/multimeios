@@ -1,19 +1,29 @@
 import { EmployeeService } from './employee.service';
+import { AppService } from '../app.service';
 export declare class EmployeeController {
     private service;
-    constructor(service: EmployeeService);
-    employees(): Promise<{
+    private appService;
+    constructor(service: EmployeeService, appService: AppService);
+    employees(req: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
         Employees: import(".prisma/client").Employee[];
     }>;
-    profile(id: any): Promise<{
+    profile(req: any, id: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
         Employee: import(".prisma/client").Employee;
     }>;
-    add(): Promise<{
+    add(req: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
     }>;
-    createEmployee(res: any, data: any): Promise<{
+    createEmployee(req: any, res: any, data: any): Promise<{
+        admin: boolean;
+        id: any;
         Employees: import(".prisma/client").Employee;
     }>;
     deleteEmployee(res: any, id: any): Promise<any>;

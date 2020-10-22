@@ -1,18 +1,23 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, Render, Req, Res } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import bcrypt = require('bcrypt')
+import { AppService } from '../app.service';
 @Controller('employee')
 export class EmployeeController {
     constructor(
-        private service: EmployeeService
+        private service: EmployeeService,
+        private appService: AppService
     ) { }
 
     @Get()
     @Render('pages/employee/list')
-    async employees() {
+    async employees(@Req() req) {
         const getEmployees = await this.service.getMany()
         if (getEmployees)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
+
                 title: 'Funcionários',
                 Employees: getEmployees
             };
@@ -22,10 +27,13 @@ export class EmployeeController {
     @Post('/profile')
     @HttpCode(200)
     @Render('pages/employee/profile')
-    async profile(@Body('id') id) {
+    async profile(@Req() req, @Body('id') id) {
+        console.dir(id)
         const employee = await this.service.getOne(id)
         if (employee)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 title: 'Perfil',
                 Employee: employee
             };
@@ -34,23 +42,28 @@ export class EmployeeController {
 
     @Get('/add')
     @Render('pages/employee/create')
-    async add() {
+    async add(@Req() req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Novo Funcionário',
         };
     }
 
     @Post('/')
     @Render('pages/employee/list')
-    async createEmployee(@Res() res, @Body() data) {
+    async createEmployee(@Req() req, @Res() res, @Body() data) {
         const secret = Math.random().toString(36).slice(-10)
-        data.secret =bcrypt.hashSync(secret, 10);
+        data.secret = bcrypt.hashSync(secret, 10);
         const newEmployee = await this.service.create(data, secret)
 
         if (newEmployee) {
             res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/employee')
         }
+
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             Employees: newEmployee
         };
     }
@@ -67,6 +80,7 @@ export class EmployeeController {
     @Post('/alter/:id')
     @HttpCode(200)
     async alterEmployee(@Res() res, @Body() data, @Param('id') id) {
+        data.secret = bcrypt.hashSync(data.secret, 10);
         const altertEmployee = await this.service.update(data, id)
 
         if (altertEmployee) {

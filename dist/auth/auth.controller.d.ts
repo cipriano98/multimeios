@@ -1,9 +1,13 @@
 import { Employee } from '@prisma/client';
 import { EmployeeService } from '../employee/employee.service';
+import { AppService } from '../app.service';
 export declare class AuthController {
     private employeeService;
-    constructor(employeeService: EmployeeService);
-    pageSignin(res: any): Promise<{
+    private appService;
+    constructor(employeeService: EmployeeService, appService: AppService);
+    pageSignin(req: any, res: any): Promise<{
+        admin: boolean;
+        id: any;
         title: string;
         login: boolean;
     }>;

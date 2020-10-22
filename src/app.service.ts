@@ -16,8 +16,13 @@ export class AppService {
             newCookie[keyValue[0]] = keyValue[1]
         });
 
+        console.log('newCookie')
         console.dir(newCookie)
-        if(getCookie) return newCookie[getCookie] || ""
+        if (getCookie) {
+            console.log('getCookie')
+            console.dir(getCookie)
+            return newCookie[getCookie] || ""
+        }
         return newCookie;
     }
 

@@ -4,6 +4,7 @@ import {
     Res, Req,
     HttpException, HttpStatus, HttpCode
 } from '@nestjs/common';
+import { AppService } from '../app.service';
 import { UserService } from './user.service';
 
 
@@ -11,16 +12,19 @@ import { UserService } from './user.service';
 export class UserController {
 
     constructor(
-        private service: UserService
+        private service: UserService,
+        private appService: AppService
     ) { }
 
     @Get()
     @Render('pages/user/list')
-    async users() {
+    async users(@Req() req) {
         const getUsers = await this.service.getMany()
         if (getUsers)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
                 title: 'Usuários',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 Users: getUsers
             };
         throw new HttpException('Não há dados', HttpStatus.NO_CONTENT)
@@ -29,10 +33,12 @@ export class UserController {
     @Post('/profile')
     @HttpCode(200)
     @Render('pages/user/profile')
-    async profile(@Body('id') id) {
+    async profile(@Req() req, @Body('id') id) {
         const user = await this.service.getOne(id)
         if (user)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 title: 'Perfil',
                 User: user
             };
@@ -41,21 +47,25 @@ export class UserController {
 
     @Get('/add')
     @Render('pages/user/create')
-    async add() {
+    async add(@Req() req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Novo usuário',
         };
     }
 
     @Post('/')
     @Render('pages/user/list')
-    async createUser(@Res() res, @Body() data) {
+    async createUser(@Req() req, @Res() res, @Body() data) {
         const newUser = await this.service.create(data)
 
         if (newUser) {
             res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
         }
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            cookie: this.appService.getCookie(req.headers.cookie),
             Users: newUser
         };
     }

@@ -1,23 +1,28 @@
-import { Body, Controller, Get, HttpStatus, Post, Render, Res } from '@nestjs/common'
+import { Body, Controller, Get, HttpStatus, Post, Render, Req, Res } from '@nestjs/common'
 import { Employee } from '@prisma/client'
 
 import jwt = require('jsonwebtoken')
 
 import bcrypt = require('bcrypt')
 import { EmployeeService } from '../employee/employee.service'
+import { AppService } from '../app.service'
 
 @Controller('admin')
 export class AuthController {
 
     constructor(
         private employeeService: EmployeeService,
+        private appService: AppService
+
     ) { }
 
     @Get('/signin')
     @Render('pages/employee/login')
-    async pageSignin(@Res() res) {
+    async pageSignin(@Req() req, @Res() res) {
         res.cookie('token', '')
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Login',
             login: true
         }
@@ -63,6 +68,15 @@ export class AuthController {
                         expires: new Date(Date.now() + 7200000),
                         httpOnly: true
                     });
+                    res.cookie('role', existsEmployee['role'], {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                    });
+                    res.cookie('id', existsEmployee['id'], {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                    });
+
                     res.status(200)
                         // .json({
                         //     auth: true,

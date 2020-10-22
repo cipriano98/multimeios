@@ -54,7 +54,6 @@ let EmployeeService = class EmployeeService {
             return transport.sendMail(sendEmail, (err, info) => {
                 if (err) {
                     console.dir(err);
-                    throw err;
                 }
                 console.log('Email enviado! Leia as informações adicionais: ', info);
             });
@@ -74,7 +73,8 @@ let EmployeeService = class EmployeeService {
         return await this.prisma.employee.findMany({});
     }
     async create(data, pass) {
-        this.sendEmail(data.email, 'SECRET', pass);
+        if (data.email.includes('@'))
+            this.sendEmail(data.email, 'SECRET', pass);
         return await this.prisma.employee.create({
             data: Object.assign({}, data)
         });

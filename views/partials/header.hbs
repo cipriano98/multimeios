@@ -18,11 +18,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="/user">Users</a>
             </li>
+            {{#if admin}}
             <li class="nav-item">
                 <a class="nav-link" href="/employee">Employees</a>
             </li>
+            {{/if}}
         </ul>
         <ul class="navbar-nav">
+            {{#if admin}}
+            {{else}}
+            <li class="nav-item">
+                <form action="employee/profile" method="POST">
+                    <input type="hidden" name="id" value={{id}} />
+                    <button class="btn nav-link">Perfil</button>
+                </form>
+            </li>
+            {{/if}}
             <li class="nav-item">
                 <a class="nav-link" href="/admin/signin">sair</a>
             </li>

@@ -17,13 +17,17 @@ const common_1 = require("@nestjs/common");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const employee_service_1 = require("../employee/employee.service");
+const app_service_1 = require("../app.service");
 let AuthController = class AuthController {
-    constructor(employeeService) {
+    constructor(employeeService, appService) {
         this.employeeService = employeeService;
+        this.appService = appService;
     }
-    async pageSignin(res) {
+    async pageSignin(req, res) {
         res.cookie('token', '');
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Login',
             login: true
         };
@@ -65,6 +69,14 @@ let AuthController = class AuthController {
                         expires: new Date(Date.now() + 7200000),
                         httpOnly: true
                     });
+                    res.cookie('role', existsEmployee['role'], {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                    });
+                    res.cookie('id', existsEmployee['id'], {
+                        expires: new Date(Date.now() + 7200000),
+                        httpOnly: true
+                    });
                     res.status(200)
                         .redirect('/');
                 }
@@ -88,9 +100,9 @@ let AuthController = class AuthController {
 __decorate([
     common_1.Get('/signin'),
     common_1.Render('pages/employee/login'),
-    __param(0, common_1.Res()),
+    __param(0, common_1.Req()), __param(1, common_1.Res()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "pageSignin", null);
 __decorate([
@@ -102,7 +114,8 @@ __decorate([
 ], AuthController.prototype, "signin", null);
 AuthController = __decorate([
     common_1.Controller('admin'),
-    __metadata("design:paramtypes", [employee_service_1.EmployeeService])
+    __metadata("design:paramtypes", [employee_service_1.EmployeeService,
+        app_service_1.AppService])
 ], AuthController);
 exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

@@ -16,34 +16,43 @@ exports.EmployeeController = void 0;
 const common_1 = require("@nestjs/common");
 const employee_service_1 = require("./employee.service");
 const bcrypt = require("bcrypt");
+const app_service_1 = require("../app.service");
 let EmployeeController = class EmployeeController {
-    constructor(service) {
+    constructor(service, appService) {
         this.service = service;
+        this.appService = appService;
     }
-    async employees() {
+    async employees(req) {
         const getEmployees = await this.service.getMany();
         if (getEmployees)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 title: 'Funcionários',
                 Employees: getEmployees
             };
         throw new common_1.HttpException('Não há dados', common_1.HttpStatus.NO_CONTENT);
     }
-    async profile(id) {
+    async profile(req, id) {
+        console.dir(id);
         const employee = await this.service.getOne(id);
         if (employee)
             return {
+                admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+                id: this.appService.getCookie(req.headers.cookie, 'id'),
                 title: 'Perfil',
                 Employee: employee
             };
         throw new common_1.HttpException('O funcionário com este id não existe', common_1.HttpStatus.NOT_FOUND);
     }
-    async add() {
+    async add(req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             title: 'Novo Funcionário',
         };
     }
-    async createEmployee(res, data) {
+    async createEmployee(req, res, data) {
         const secret = Math.random().toString(36).slice(-10);
         data.secret = bcrypt.hashSync(secret, 10);
         const newEmployee = await this.service.create(data, secret);
@@ -51,6 +60,8 @@ let EmployeeController = class EmployeeController {
             res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
         }
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
             Employees: newEmployee
         };
     }
@@ -61,6 +72,7 @@ let EmployeeController = class EmployeeController {
         }
     }
     async alterEmployee(res, data, id) {
+        data.secret = bcrypt.hashSync(data.secret, 10);
         const altertEmployee = await this.service.update(data, id);
         if (altertEmployee) {
             res.status(common_1.HttpStatus.PERMANENT_REDIRECT).redirect('/employee');
@@ -70,32 +82,34 @@ let EmployeeController = class EmployeeController {
 __decorate([
     common_1.Get(),
     common_1.Render('pages/employee/list'),
+    __param(0, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "employees", null);
 __decorate([
     common_1.Post('/profile'),
     common_1.HttpCode(200),
     common_1.Render('pages/employee/profile'),
-    __param(0, common_1.Body('id')),
+    __param(0, common_1.Req()), __param(1, common_1.Body('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "profile", null);
 __decorate([
     common_1.Get('/add'),
     common_1.Render('pages/employee/create'),
+    __param(0, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "add", null);
 __decorate([
     common_1.Post('/'),
     common_1.Render('pages/employee/list'),
-    __param(0, common_1.Res()), __param(1, common_1.Body()),
+    __param(0, common_1.Req()), __param(1, common_1.Res()), __param(2, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "createEmployee", null);
 __decorate([
@@ -116,7 +130,8 @@ __decorate([
 ], EmployeeController.prototype, "alterEmployee", null);
 EmployeeController = __decorate([
     common_1.Controller('employee'),
-    __metadata("design:paramtypes", [employee_service_1.EmployeeService])
+    __metadata("design:paramtypes", [employee_service_1.EmployeeService,
+        app_service_1.AppService])
 ], EmployeeController);
 exports.EmployeeController = EmployeeController;
 //# sourceMappingURL=employee.controller.js.map

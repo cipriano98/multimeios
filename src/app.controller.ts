@@ -9,6 +9,9 @@ export class AppController {
     @Render('pages/home')
     root(@Req() req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
+
             title: 'Home',
             message: this.appService.getCookie(req.headers.cookie)
         };
@@ -16,8 +19,11 @@ export class AppController {
 
     @Get('/about')
     @Render('pages/about')
-    about() {
+    about(@Req() req) {
         return {
+            admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
+            id: this.appService.getCookie(req.headers.cookie, 'id'),
+
             title: 'About',
             message: 'hello About'
         };
