@@ -39,6 +39,7 @@
         "@nestjs/jwt": "^7.1.0",
         "@nestjs/passport": "^7.1.0",
         "@nestjs/platform-express": "^7.4.4",
+        "@nestjs/schedule": "^0.4.1",
         "@prisma/client": "^2.9.0",
         "bcrypt": "^5.0.0",
         "class-transformer": "^0.3.1",
