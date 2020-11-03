@@ -12,13 +12,13 @@ export class TokenMiddleware implements NestMiddleware {
 
         const authorizedLog = loggedIn => {
             console.log('\nAcesso permitido ao usuário', loggedIn.email)
-            console.log("by temAcesso")
+            // console.log("by temAcesso")
 
-            console.log("\n")
-            console.log("request:", req.path, "→ Type:", req.method);
-            console.log("in:", req.headers.referer);
-            console.log("on:", dataUTC, 'at', horaUTC);
-            console.log("by AuthMiddleware\n");
+            // console.log("\n")
+            // console.log("request:", req.path, "→ Type:", req.method);
+            // console.log("in:", req.headers.referer);
+            // console.log("on:", dataUTC, 'at', horaUTC);
+            // console.log("by AuthMiddleware\n");
         }
 
 
@@ -30,9 +30,9 @@ export class TokenMiddleware implements NestMiddleware {
                 authorizedLog(loggedIn)
                 return true
             }
-            console.log('\nAcesso negado em:', req.headers.referer)
-            console.log("request:", req.path, "→ Type:", req.method);
-            console.log("by temAcesso");
+            // console.log('\nAcesso negado em:', req.headers.referer)
+            // console.log("request:", req.path, "→ Type:", req.method);
+            // console.log("by temAcesso");
             return false
         }
 
@@ -45,7 +45,7 @@ export class TokenMiddleware implements NestMiddleware {
         }
 
         const token = appService.getCookie(req.headers.cookie, 'token')
-        console.log('\nToken gerado →', token);
+        // console.log('\nToken gerado →', token);
 
         if (!token) {
             return res
@@ -59,7 +59,7 @@ export class TokenMiddleware implements NestMiddleware {
 
         const secret = process.env.SERVER_SECRET_TOKEN || 'multi→Meios';
         jwt.verify(token, secret, (err, decoded) => {
-            console.dir(decoded)
+            // console.dir(decoded)
             if (err) {
                 if (err.message === 'jwt expired') {
                     const tokenError = {

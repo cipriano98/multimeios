@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -15,6 +16,7 @@ import configuration from './config/configuration';
             isGlobal: true,
             load: [configuration]
         }),
+        ScheduleModule.forRoot()
     ],
     controllers: [AppController],
     providers: [AppService],

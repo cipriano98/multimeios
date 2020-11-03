@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 
 const prisma = new PrismaClient()
@@ -16,11 +16,11 @@ export class AppService {
             newCookie[keyValue[0]] = keyValue[1]
         });
 
-        console.log('newCookie')
-        console.dir(newCookie)
+        // console.log('newCookie')
+        // console.dir(newCookie)
         if (getCookie) {
-            console.log('getCookie')
-            console.dir(getCookie)
+            // console.log('getCookie')
+            // console.dir(getCookie)
             return newCookie[getCookie] || ""
         }
         return newCookie;

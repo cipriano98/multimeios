@@ -17,7 +17,6 @@ export class EmployeeController {
             return {
                 admin: this.appService.getCookie(req.headers.cookie, 'role') === 'ADMIN',
                 id: this.appService.getCookie(req.headers.cookie, 'id'),
-
                 title: 'Funcionários',
                 Employees: getEmployees
             };

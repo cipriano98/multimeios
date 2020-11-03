@@ -59,7 +59,6 @@ export class UserController {
     @Render('pages/user/list')
     async createUser(@Req() req, @Res() res, @Body() data) {
         const newUser = await this.service.create(data)
-
         if (newUser) {
             res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
         }
@@ -82,10 +81,13 @@ export class UserController {
     @Post('/alter/:id')
     @HttpCode(200)
     async alterUser(@Res() res, @Body() data, @Param('id') id) {
+        if(data.computer !== 'NONE') this.service.logoutUser(Number(id))
         const altertUser = await this.service.update({
-            data: { ...data },
-            where: { id: Number(id) },
-        })
+                params: {
+                    data: { ...data },
+                    where: { id: Number(id) },
+                }
+            })
 
         if (altertUser) {
             res.status(HttpStatus.PERMANENT_REDIRECT).redirect('/user')
