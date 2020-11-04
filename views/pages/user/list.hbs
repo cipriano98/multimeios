@@ -25,17 +25,35 @@
                     {{this.online}}
                 </td>
                 <td>
-                    {{this.computer}}
+                    <form action="user/alter/{{this.id}}" method="POST" class="row" novalidate>
+                        <select class="form-control col-md-4" name="computer" id="computer" required>
+                            <option value="{{this.computer}}" selected>{{this.computer}}</option>
+                            <option value="NONE">NONE</option>
+                            <option value="UM">UM</option>
+                            <option value="DOIS">DOIS</option>
+                            <option value="TRES">TRES</option>
+                            <option value="QUATRO">QUATRO</option>
+                            <option value="CINCO">CINCO</option>
+                            <option value="SEIS">SEIS</option>
+                            <option value="SETE">SETE</option>
+                            <option value="OITO">OITO</option>
+                            <option value="NOVE">NOVE</option>
+                            <option value="DEZ">DEZ</option>
+                        </select>&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-outline-warning col-md-2">v</button>
+                    </form>
                 </td>
                 <td>
                     <div class="row">
+                        &nbsp;&nbsp;&nbsp;
                         <form action="user/profile" method="POST">
                             <input type="hidden" name="id" value={{this.id}} />
                             <button class="btn btn-outline-success">Perfil</button>
                         </form>
+                        &nbsp;&nbsp;&nbsp;
                         <form action="user/delete" method="POST">
                             <input type="hidden" name="id" value={{this.id}} />
-                            <button class="btn btn-outline-danger">Deletar</button>
+                            <button class="btn btn-outline-danger ">Deletar</button>
                         </form>
                     </div>
                 </td>
