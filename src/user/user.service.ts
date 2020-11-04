@@ -4,7 +4,7 @@ import { User, UserUpdateInput, UserWhereUniqueInput } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 import schedule = require('node-schedule');
-const chalk = require('chalk')
+// const chalk = require('chalk')
 
 
 @Injectable()
@@ -41,10 +41,13 @@ export class UserService {
                 const minute = date.getMinutes() + 1
                 const second = date.getSeconds()
                 const agenda_para = `${hour}:${minute}:${second}`
-                // this.logger.log('Timeout second is 10')
-                console.log(`${chalk.magenta(user.nickname.toUpperCase())} → Logout agendado para: ${chalk.green(agenda_para)}`);
+                // console.log(`${chalk.magenta(user.nickname.toUpperCase())} → Logout agendado para: ${chalk.green(agenda_para)}`);
+                this.logger.log(`${user.nickname.toUpperCase()} → Logout agendado para: ${agenda_para}`)
+                // console.log(`${chalk.magenta()} → Logout agendado para: ${chalk.green(agenda_para)}`);
                 schedule.scheduleJob("user_" + user.id, { hour, minute, second }, async job => {
-                    console.log(`${chalk.magenta(user.nickname.toUpperCase())} → Logout executado em: ${chalk.green(agenda_para)}`);
+                    // console.log(`${chalk.magenta(user.nickname.toUpperCase())} → Logout executado em: ${chalk.green(agenda_para)}`);
+                    this.logger.log(`${user.nickname.toUpperCase()} → Logout executado em: ${agenda_para}`)
+                    // console.log(`${chalk.magenta(user.nickname.toUpperCase())} → Logout executado em: ${chalk.green(agenda_para)}`);
                     await this.update({
                         params: {
                             data: {
