@@ -51,7 +51,7 @@ async function bootstrap() {
     await app.listen(port, '0.0.0.0', () => {
         console.clear()
         // console.log(`\n[${chalk.bold.hex('#28f000')(process.env.npm_package_NAME.toUpperCase())}] is running in ${chalk.blue.underline(`http://localhost:${port}`)}`)
-        console.log(`\n${process.env.npm_package_NAME.toUpperCase()}] is running in http://localhost:${port}`)
+        console.log(`\n[MULTIMEIOS] is running in http://localhost:${port}`)
         console.log(process.env.npm_package_DESCRIPTION)
         console.log(`${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}\n`);
     });
