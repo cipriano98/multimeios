@@ -49,12 +49,13 @@ export class TokenMiddleware implements NestMiddleware {
 
         if (!token) {
             return res
-                .status(403)
-                .send({
-                    auth: false,
-                    message: 'Nenhum token fornecido',
-                    warning: 'Realize o login e tente novamente'
-                });
+            .redirect(301, '/admin/signin')
+                // .status(403)
+                // .send({
+                //     auth: false,
+                //     message: 'Nenhum token fornecido',
+                //     warning: 'Realize o login e tente novamente'
+                // });
         }
 
         const secret = process.env.SERVER_SECRET_TOKEN || 'multi→Meios';
